@@ -1,7 +1,16 @@
 name: Trigger auto deployment
 on:
   # 手動実行用トリガー
-  workflow_dispatch:      
+  workflow_dispatch:  
+  
+  # Add a trigger
+  # 自動実行用トリガー
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+
 # Add env
 env:
    CONTAINER_REGISTRY: handson01cicdj73lpxf2urxhm.azurecr.io
@@ -103,16 +112,3 @@ jobs:
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
               --container-name $container_name \
               --image ${{ env.CONTAINER_REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ github.sha }}
-
-name: Trigger auto deployment
-on:
-  # 手動実行用トリガー
-  workflow_dispatch:
-  
-  # Add a trigger
-  # 自動実行用トリガー
-  push:
-    branches: 
-      [ main ]
-    paths:
-    - '**'
